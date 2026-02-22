@@ -143,15 +143,9 @@ class RubinAgent:
         except Exception as e:
             print(f"[ERROR] Failed to post to X: {e}")
 
-    def job(self):
-        """The job to be executed."""
-        print(f"\n[JOB START] {datetime.now().strftime('%Y-%m-%d %H:%M')}")
-        
-        # Apply Jitter (wait before posting)
-        jitter = self.config["technical_configuration"]["jitter_minutes"]
-        wait_min = random.uniform(0, jitter)
-        print(f"Applying Jitter: Waiting {wait_min:.2f} minutes...")
-        time.sleep(wait_min * 60)
+    def run_once(self):
+        """Runs the generation and posting logic a single time (for serverless/cron)."""
+        print(f"\n[RUN ONCE START] {datetime.now().strftime('%Y-%m-%d %H:%M')}")
         
         thought = self.generate_thought()
         self._log_to_journal(thought)
@@ -159,7 +153,21 @@ class RubinAgent:
         
         print("\n[METADATA]:")
         print(f"Length: {len(thought)}")
-        print("[JOB END] Waiting for next cycle...")
+        print("[RUN ONCE END]")
+        return thought
+
+    def job(self):
+        """The job to be executed in daemon mode (with jitter)."""
+        print(f"\n[DAEMON JOB START] {datetime.now().strftime('%Y-%m-%d %H:%M')}")
+        
+        # Apply Jitter (wait before posting)
+        jitter = self.config["technical_configuration"]["jitter_minutes"]
+        wait_min = random.uniform(0, jitter)
+        print(f"Applying Jitter: Waiting {wait_min:.2f} minutes...")
+        time.sleep(wait_min * 60)
+        
+        self.run_once()
+        print("[DAEMON JOB END] Waiting for next cycle...")
 
     def run_schedule(self):
         """
