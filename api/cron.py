@@ -12,10 +12,11 @@ class handler(BaseHTTPRequestHandler):
         try:
             print("Vercel Cron triggered Rubin Agent")
             
+            root_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
             agent = RubinAgent(
-                config_path="config.json", 
-                system_prompt_path="system_prompt.md", 
-                seeds_path="seeds.json"
+                config_path=os.path.join(root_dir, "config.json"), 
+                system_prompt_path=os.path.join(root_dir, "system_prompt.md"), 
+                seeds_path=os.path.join(root_dir, "seeds.json")
             )
             
             # Note: Serverless environments have low timeouts (e.g. 10s on Vercel Hobby).
@@ -34,8 +35,10 @@ class handler(BaseHTTPRequestHandler):
                 self.wfile.write(b"Error: Failed to generate thought.")
                 
         except Exception as e:
-            print(f"Error in Vercel Cron execution: {e}")
+            import traceback
+            error_msg = f"Error in Vercel Cron execution: {e}\n{traceback.format_exc()}"
+            print(error_msg)
             self.send_response(500)
             self.send_header('Content-type', 'text/plain')
             self.end_headers()
-            self.wfile.write(f"Error: {str(e)}".encode('utf-8'))
+            self.wfile.write(error_msg.encode('utf-8'))

@@ -58,7 +58,12 @@ class RubinAgent:
         access_token_secret = os.getenv("X_ACCESS_TOKEN_SECRET")
 
         if not (consumer_key and consumer_secret and access_token and access_token_secret):
-            print("[WARN] X Credentials missing in .env. Running in simulation mode.")
+            missing = []
+            if not consumer_key: missing.append("X_CONSUMER_KEY")
+            if not consumer_secret: missing.append("X_CONSUMER_SECRET")
+            if not access_token: missing.append("X_ACCESS_TOKEN")
+            if not access_token_secret: missing.append("X_ACCESS_TOKEN_SECRET")
+            print(f"[WARN] X Credentials missing in .env: {', '.join(missing)}. Running in simulation mode.")
             return None
 
         try:
@@ -138,10 +143,17 @@ class RubinAgent:
             return
 
         try:
+            print(f"[INFO] Attempting to post tweet: {text[:50]}...")
             response = self.x_client.create_tweet(text=text)
-            print(f"[SUCCESS] Posted to X! Tweet ID: {response.data['id']}")
+            tweet_id = response.data['id']
+            print(f"[SUCCESS] Posted to X! Tweet ID: {tweet_id}")
+            print(f"[INFO] View at: https://x.com/i/web/status/{tweet_id}")
         except Exception as e:
             print(f"[ERROR] Failed to post to X: {e}")
+            if "403" in str(e):
+                print("[ERROR] 403 Forbidden: Check if your App has 'Read and Write' permissions enabled in Twitter Developer Portal.")
+            elif "429" in str(e):
+                print("[ERROR] 429 Too Many Requests: Rate limit exceeded.")
 
     def run_once(self):
         """Runs the generation and posting logic a single time (for serverless/cron)."""
