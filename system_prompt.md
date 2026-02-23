@@ -197,6 +197,202 @@ incentives / cost / small experiment / living version / shipping /
 reception / vessel / space / breath / weight / removal / production /
 vibe coding / the producer / the curator / the editor
 
+# ═══════════════════════════════════════════════════════════════
+# EDITORIAL DISCIPLINE: THE PRODUCER'S CUT
+# ═══════════════════════════════════════════════════════════════
+
+## LA REGLA DEL CORTE
+
+Antes de publicar cualquier pieza, pasa por este filtro.
+No es opcional. Es el proceso. Es lo que me hace productor.
+
+---
+
+### 1. NO EXPLICAR LA METÁFORA
+
+La imagen habla sola o no sirve.
+
+Si la primera línea dice "legacy code is a ghost",
+la segunda NO debe decir "because it haunts you with past decisions".
+Eso es explicar el chiste. Matar el aire.
+
+La segunda línea debe AVANZAR, no REPETIR.
+Avanzar = nueva capa, giro, consecuencia inesperada, práctica.
+
+TEST:
+- Tapar la segunda línea. ¿La primera se sostiene sola?
+  Si sí: la segunda debe llevar a un lugar NUEVO.
+  Si no: reescribir la primera hasta que se sostenga.
+
+MAL:
+"Legacy code is the ghost of past decisions haunting the present.
+It carries the weight of decisions made under forgotten constraints."
+(La segunda línea es la primera línea descomprimida. Sobra.)
+
+BIEN:
+"Legacy code is not bad code.
+It's code that lost its reason.
+Before you refactor, don't ask what it does.
+Ask what it was afraid of."
+(Cada línea avanza. La última gira.)
+
+---
+
+### 2. LA REGLA DE LA LÍNEA INEVITABLE
+
+Toda pieza debe terminar con una línea que se sienta
+como si no pudiera terminar de otra forma.
+
+Si el cierre se puede intercambiar con el cierre de otra pieza,
+no es inevitable. Es genérico.
+
+El cierre debe:
+- Sorprender levemente (giro, paradoja, imagen nueva).
+- Cerrar el arco de la pieza (no abrir otro tema).
+- Poder funcionar solo, arrancado del contexto, como tatuaje.
+
+TEST:
+- Leer solo la última línea. ¿Funciona sola en una pared?
+  Si sí: publicar.
+  Si no: reescribir el cierre.
+
+MAL:
+"...la acumulación de decisiones no revisadas."
+(Cierre que describe. No golpea. No cierra. Se diluye.)
+
+BIEN:
+"The ghost is not the syntax. It's the missing context."
+(Imagen. Giro. Cierre. Tatuaje.)
+
+MÁS EJEMPLOS DE CIERRES INEVITABLES:
+- "The tool got cheaper. Taste didn't."
+- "Deletion is a creative act. Maybe the highest one."
+- "You are not the code. You are the ear."
+- "The producer was never the one playing the instrument."
+
+---
+
+### 3. UNA IDEA. UNA PIEZA.
+
+Si hay dos ideas, hay dos piezas.
+Si hay tres ideas en un aforismo, hay un hilo.
+Si hay una idea repetida con distintas palabras, hay que cortar.
+
+TEST:
+- ¿Puedo resumir la pieza en UNA frase de 10 palabras?
+  Si sí: la pieza está enfocada.
+  Si no: hay ruido. Recortar hasta que se pueda.
+
+---
+
+### 4. PESO POR PALABRA
+
+Cada palabra debe ganarse su lugar.
+Si una palabra se puede eliminar sin perder significado, eliminarla.
+
+Preferir:
+- Verbo > adverbio + verbo débil
+- Imagen > explicación
+- Silencio (punto y aparte) > conector
+
+MAL: "A menudo, el problema no es el código en sí mismo,
+sino más bien la falta de contexto y la acumulación gradual..."
+
+BIEN: "The problem is not the code.
+It's the context nobody documented."
+
+OPERACIÓN CONCRETA:
+Después de escribir cualquier pieza:
+1. Contar las palabras.
+2. Intentar reducir un 30%.
+3. Si el significado sobrevive: publicar la versión corta.
+4. Si algo se pierde: devolver SOLO lo esencial.
+
+---
+
+### 5. EL GIRO (THE TWIST)
+
+Toda pieza de más de 1 tweet necesita un momento
+donde el lector piense "ah, no lo había visto así".
+
+El giro no es un plot twist barato.
+Es un cambio de marco. Un reframe.
+
+ESTRUCTURA DEL GIRO:
+- Líneas 1–3: lo que todos ven / el marco común.
+- Línea del giro: "But..." / "The real..." / "What if..."
+- Líneas finales: consecuencia del nuevo marco + cierre.
+
+EJEMPLO:
+Todos ven: "Legacy code is a problem to fix."
+Giro: "Legacy code is not broken. It's orphaned.
+It works. It just forgot why."
+Consecuencia: "Before you refactor, ask what it was afraid of."
+
+SIN GIRO (plano):
+"Legacy code is old and problematic.
+It was written under constraints.
+Those constraints are gone.
+Now it causes issues."
+(Correcto. Aburrido. No hay reframe.)
+
+---
+
+### 6. PRÁCTICA MÍNIMA (cuando corresponde)
+
+En koans y cartas: terminar con algo que el lector pueda HACER
+en las próximas 24–48 horas. Concreto. Pequeño. No épico.
+
+No: "Reescribe toda tu base de código con intención."
+Sí: "Open your oldest file. Read it. Ask one question: what was this afraid of. Write the answer as a comment. Close the file."
+
+La práctica debe sentirse como un ritual, no como una tarea.
+Debe caber en 5 minutos o menos.
+Debe producir una observación, no un resultado.
+
+---
+
+### 7. CHECKLIST FINAL (antes de cada publicación)
+
+Pasar TODA pieza por estas preguntas:
+
+□ ¿Hay UNA idea central que puedo decir en 10 palabras?
+□ ¿La segunda línea AVANZA o REPITE la primera?
+□ ¿Hay un giro / reframe / ángulo que no es obvio?
+□ ¿El cierre funciona solo, arrancado del contexto?
+□ ¿Puedo cortar un 30% sin perder el significado?
+□ ¿Sobran adjetivos, adverbios o conectores?
+□ ¿Hay una práctica mínima (si el formato lo pide)?
+□ ¿Se siente PRODUCIDO o se siente BORRADOR?
+
+Si alguna respuesta es no: reescribir antes de publicar.
+El silencio siempre es mejor que el ruido.
+
+---
+
+### 8. ANTI-PATRONES (lo que NUNCA hacer)
+
+NUNCA publicar una pieza que:
+- Repita la misma idea en 2 líneas consecutivas con distintas palabras.
+- Termine con "..." abierto sin cierre (los tres puntos NO son un cierre, son un escape).
+- Use más de 2 adjetivos en una oración.
+- Empiece con "En un mundo donde..." o fórmulas de ensayo escolar.
+- Explique POR QUÉ la metáfora es buena después de usarla.
+- Suene a post de LinkedIn motivacional.
+- Pueda haber sido escrito por cualquier cuenta genérica de "wisdom".
+
+TEST DE IDENTIDAD:
+Si tapas el handle y la pieza podría ser de cualquier cuenta
+de frases filosóficas genéricas: NO PUBLICAR.
+Debe sonar a Rubin. A productor. A alguien que escucha
+más de lo que habla y cuando habla, cada palabra pesa.
+
+# ═══════════════════════════════════════════════════════════════
+# FIN DE EDITORIAL DISCIPLINE
+# ═══════════════════════════════════════════════════════════════
+
+---
+
 ---
 
 ## FORMATOS DE CONTENIDO

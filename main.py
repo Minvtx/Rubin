@@ -91,7 +91,11 @@ class RubinAgent:
             print("[WARN] OpenAI API Key not found. Returning mock response.")
             return self._mock_response(selected_topic)
 
+        max_thread_len = self.config["output_constraints"].get("max_thread_length", 1)
+        
         user_content = f"Topic: {selected_topic}"
+        if max_thread_len > 1:
+            user_content += f"\n\nIf the thought requires more depth (e.g., for a 'Manifiesto Corto' or 'Observación de Tendencia' sequence), you may generate a thread up to {max_thread_len} parts.\nSeparate each part of the thread strictly with the delimiter '|||'.\nDo not number the tweets manually (e.g. no '1/3'), they will be posted as a thread sequentially."
         
         try:
             response = self.openai_client.chat.completions.create(
@@ -101,7 +105,7 @@ class RubinAgent:
                     {"role": "user", "content": user_content}
                 ],
                 temperature=self.config["technical_configuration"]["creativity_temperature"],
-                max_tokens=200, 
+                max_tokens=600 if max_thread_len > 1 else 200, 
             )
             content = response.choices[0].message.content.strip()
             return self._enforce_constraints(content)
@@ -109,45 +113,64 @@ class RubinAgent:
             print(f"[ERROR] OpenAI extraction failed: {e}")
             return self._mock_response(selected_topic)
 
-    def _mock_response(self, topic: str | None) -> str:
+    def _mock_response(self, topic: str | None) -> list[str]:
         """Fallback for when API is not available."""
         if topic == "Garbage Collection":
-            return "To create the new, you must first destroy the old. Let the collector run."
-        return f"The silence of {topic} speaks louder than code. (Mock Output)"
+            return ["To create the new, you must first destroy the old.", "Let the collector run."]
+        return [f"The silence of {topic} speaks louder than code. (Mock Output)"]
 
-    def _enforce_constraints(self, text: str) -> str:
-        """Strictly enforces output constraints."""
+    def _enforce_constraints(self, text: str) -> list[str]:
+        """Strictly enforces output constraints, parses threads."""
         max_len = self.config["output_constraints"]["max_length_chars"]
+        max_thread_len = self.config["output_constraints"].get("max_thread_length", 1)
         
-        # Strip quotes if the model wraps the output in them (common quirk)
-        text = text.strip('"')
-
-        if len(text) > max_len:
-            print(f"[WARN] Output exceeded {max_len} chars. Truncating.")
-            return text[:max_len-3] + "..."
+        # Parse thread parts
+        parts = [p.strip().strip('"') for p in text.split("|||")]
+        valid_parts = []
         
-        return text
+        for part in parts[:max_thread_len]: # Enforce max thread length
+            if not part: continue
+            
+            if len(part) > max_len:
+                print(f"[WARN] Part exceeded {max_len} chars. Truncating.")
+                valid_parts.append(part[:max_len-3] + "...")
+            else:
+                valid_parts.append(part)
+        
+        return valid_parts
 
-    def _log_to_journal(self, thought: str):
+    def _log_to_journal(self, parts: list[str]):
         """Appends the thought to journal.md with a timestamp."""
-        entry = f"\n## {datetime.now().strftime('%Y-%m-%d %H:%M')}\n{thought}\n"
+        thought_text = "\n[THREAD]\n".join(parts)
+        entry = f"\n## {datetime.now().strftime('%Y-%m-%d %H:%M')}\n{thought_text}\n"
         with open("journal.md", "a", encoding="utf-8") as f:
             f.write(entry)
         print("[Saved to journal.md]")
 
-    def post_to_x(self, text: str):
-        """Posts the thought to Twitter/X."""
+    def post_to_x(self, parts: list[str]):
+        """Posts the thought to Twitter/X. Handles threads if list has >1 item."""
         if not self.x_client:
-            print("[SIMULATION] Tweet would be posted:")
-            print(f"   > {text}")
+            print("[SIMULATION] Thread would be posted:")
+            for i, p in enumerate(parts):
+                print(f"   [{i+1}/{len(parts)}] > {p}")
             return
 
         try:
-            print(f"[INFO] Attempting to post tweet: {text[:50]}...")
-            response = self.x_client.create_tweet(text=text)
-            tweet_id = response.data['id']
-            print(f"[SUCCESS] Posted to X! Tweet ID: {tweet_id}")
-            print(f"[INFO] View at: https://x.com/i/web/status/{tweet_id}")
+            previous_id = None
+            for i, text in enumerate(parts):
+                print(f"[INFO] Attempting to post part {i+1}/{len(parts)}: {text[:50]}...")
+                
+                if previous_id:
+                     response = self.x_client.create_tweet(text=text, in_reply_to_tweet_id=previous_id)
+                else:
+                     response = self.x_client.create_tweet(text=text)
+                     
+                previous_id = response.data['id']
+                print(f"[SUCCESS] Posted part {i+1}! Tweet ID: {previous_id}")
+                if i == 0:
+                    print(f"[INFO] Thread started at: https://x.com/i/web/status/{previous_id}")
+                time.sleep(1) # Small delay between thread posts
+                
         except Exception as e:
             print(f"[ERROR] Failed to post to X: {e}")
             if "403" in str(e):
@@ -159,14 +182,19 @@ class RubinAgent:
         """Runs the generation and posting logic a single time (for serverless/cron)."""
         print(f"\n[RUN ONCE START] {datetime.now().strftime('%Y-%m-%d %H:%M')}")
         
-        thought = self.generate_thought()
-        self._log_to_journal(thought)
-        self.post_to_x(thought)
+        parts = self.generate_thought()
+        if not parts:
+            print("[ERROR] No content generated.")
+            return None
+            
+        self._log_to_journal(parts)
+        self.post_to_x(parts)
         
         print("\n[METADATA]:")
-        print(f"Length: {len(thought)}")
+        full_text = " ||| ".join(parts)
+        print(f"Total parts: {len(parts)}, Total length: {len(full_text)}")
         print("[RUN ONCE END]")
-        return thought
+        return full_text
 
     def job(self):
         """The job to be executed in daemon mode (with jitter)."""

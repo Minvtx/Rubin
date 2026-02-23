@@ -15,8 +15,9 @@
     "context_window_tokens": 8192
   },
   "output_constraints": {
-    "language": "ENGLISH ONLY",
-    "max_length_chars": 240,
+    "language": "ENGLISH ONLY (or minimal Spanish if poetic)",
+    "max_length_chars": 280,
+    "max_thread_length": 4,
     "allow_hashtags": false,
     "allow_emojis": false,
     "allow_links": false,
