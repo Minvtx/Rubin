@@ -16,7 +16,7 @@
     "image_generation": {
       "enabled": true,
       "model": "dall-e-3",
-      "style": "Noir, black and white, minimal, abstract, high contrast, no text, cinematic lighting, grain, Rick Rubin studio vibes.",
+      "style": "Black and white fine art photograph. Dense atmospheric fog, vast dark negative space (70-90%), subtle reflections on wet ground. Minimalist composition, single focal point, monumental scale, small distant human silhouette. Bright white light geometry illuminating the scene. Square format 1:1. Mood: Contemplative Noir. No text, no letters, no words, no typography, no watermarks, no color. Strictly monochrome. Do not draw computers or literal code elements.",
       "quality": "standard",
       "size": "1024x1024"
     }

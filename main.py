@@ -168,7 +168,7 @@ class RubinAgent:
         print("[INFO] Generating image with DALL-E 3...")
         try:
             import requests
-            prompt = f"{img_cfg['style']}\n\nSubject: {thought[:300]}"
+            prompt = f"{img_cfg['style']}\n\nSubject: Translate this thought into a symbolic, non-literal setting: {thought[:300]}"
             
             response = self.openai_client.images.generate(
                 model=img_cfg["model"],
