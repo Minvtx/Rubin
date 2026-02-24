@@ -10,14 +10,14 @@
     "api_provider": "OpenAI",
     "model": "gpt-4o",
     "creativity_temperature": 0.65,
-    "schedule_cron": "0 */12 * * *",
-    "jitter_minutes": 15,
+    "schedule_cron": "0 0,12 * * *",
+    "jitter_minutes": 5,
     "context_window_tokens": 8192
   },
   "output_constraints": {
     "language": "ENGLISH ONLY (or minimal Spanish if poetic)",
     "max_length_chars": 280,
-    "max_thread_length": 4,
+    "max_thread_length": 3,
     "allow_hashtags": false,
     "allow_emojis": false,
     "allow_links": false,

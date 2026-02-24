@@ -169,7 +169,7 @@ class RubinAgent:
                 print(f"[SUCCESS] Posted part {i+1}! Tweet ID: {previous_id}")
                 if i == 0:
                     print(f"[INFO] Thread started at: https://x.com/i/web/status/{previous_id}")
-                time.sleep(1) # Small delay between thread posts
+                time.sleep(0.5) # Smaller delay for serverless efficiency
                 
         except Exception as e:
             print(f"[ERROR] Failed to post to X: {e}")
