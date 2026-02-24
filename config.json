@@ -10,9 +10,16 @@
     "api_provider": "OpenAI",
     "model": "gpt-4o",
     "creativity_temperature": 0.65,
-    "schedule_cron": "0 0,12 * * *",
+    "schedule_cron": "0 12 * * *",
     "jitter_minutes": 5,
-    "context_window_tokens": 8192
+    "context_window_tokens": 8192,
+    "image_generation": {
+      "enabled": true,
+      "model": "dall-e-3",
+      "style": "Noir, black and white, minimal, abstract, high contrast, no text, cinematic lighting, grain, Rick Rubin studio vibes.",
+      "quality": "standard",
+      "size": "1024x1024"
+    }
   },
   "output_constraints": {
     "language": "ENGLISH ONLY (or minimal Spanish if poetic)",

@@ -58,12 +58,7 @@ class RubinAgent:
         access_token_secret = os.getenv("X_ACCESS_TOKEN_SECRET")
 
         if not (consumer_key and consumer_secret and access_token and access_token_secret):
-            missing = []
-            if not consumer_key: missing.append("X_CONSUMER_KEY")
-            if not consumer_secret: missing.append("X_CONSUMER_SECRET")
-            if not access_token: missing.append("X_ACCESS_TOKEN")
-            if not access_token_secret: missing.append("X_ACCESS_TOKEN_SECRET")
-            print(f"[WARN] X Credentials missing in .env: {', '.join(missing)}. Running in simulation mode.")
+            print("[WARN] X Credentials missing. Running in simulation mode.")
             return None
 
         try:
@@ -73,16 +68,35 @@ class RubinAgent:
                 access_token=access_token,
                 access_token_secret=access_token_secret
             )
-            print("[INFO] Successfully authenticated with X.")
+            print("[INFO] Successfully authenticated with X (V2).")
             return client
         except Exception as e:
-            print(f"[ERROR] Failed to authenticate with X: {e}")
+            print(f"[ERROR] Failed to authenticate with X (V2): {e}")
             return None
 
-    def generate_thought(self, topic: Optional[str] = None) -> str:
+    def _authenticate_x_v1(self):
+        """Authenticates with X API V1.1 (Required for Media Upload)."""
+        if not tweepy: return None
+        consumer_key = os.getenv("X_CONSUMER_KEY")
+        consumer_secret = os.getenv("X_CONSUMER_SECRET")
+        access_token = os.getenv("X_ACCESS_TOKEN")
+        access_token_secret = os.getenv("X_ACCESS_TOKEN_SECRET")
+        
+        if not (consumer_key and consumer_secret and access_token and access_token_secret):
+            return None
+            
+        try:
+            auth = tweepy.OAuth1UserHandler(consumer_key, consumer_secret, access_token, access_token_secret)
+            api = tweepy.API(auth)
+            print("[INFO] Successfully authenticated with X (V1.1).")
+            return api
+        except Exception as e:
+            print(f"[ERROR] Failed to authenticate with X (V1.1): {e}")
+            return None
+
+    def generate_thought(self, topic: Optional[str] = None) -> list[str]:
         """
         Generates a thought based on the system prompt and constraints.
-        If no topic is provided, picks a random seed.
         """
         selected_topic = topic if topic else random.choice(self.seeds)
         print(f"Selected Topic: {selected_topic}")
@@ -95,7 +109,7 @@ class RubinAgent:
         
         user_content = f"Topic: {selected_topic}"
         if max_thread_len > 1:
-            user_content += f"\n\nIf the thought requires more depth (e.g., for a 'Manifiesto Corto' or 'Observación de Tendencia' sequence), you may generate a thread up to {max_thread_len} parts.\nSeparate each part of the thread strictly with the delimiter '|||'.\nDo not number the tweets manually (e.g. no '1/3'), they will be posted as a thread sequentially."
+            user_content += f"\n\nIf the thought requires more depth, you may generate a thread up to {max_thread_len} parts.\nSeparate each part strictly with '|||'.\nDo not number the tweets."
         
         try:
             response = self.openai_client.chat.completions.create(
@@ -115,8 +129,6 @@ class RubinAgent:
 
     def _mock_response(self, topic: str | None) -> list[str]:
         """Fallback for when API is not available."""
-        if topic == "Garbage Collection":
-            return ["To create the new, you must first destroy the old.", "Let the collector run."]
         return [f"The silence of {topic} speaks louder than code. (Mock Output)"]
 
     def _enforce_constraints(self, text: str) -> list[str]:
@@ -147,8 +159,39 @@ class RubinAgent:
             f.write(entry)
         print("[Saved to journal.md]")
 
-    def post_to_x(self, parts: list[str]):
-        """Posts the thought to Twitter/X. Handles threads if list has >1 item."""
+    def generate_image(self, thought: str) -> Optional[str]:
+        """Generates an image using DALL-E 3 based on the thought."""
+        img_cfg = self.config["technical_configuration"].get("image_generation", {})
+        if not img_cfg.get("enabled") or not self.openai_client:
+            return None
+        
+        print("[INFO] Generating image with DALL-E 3...")
+        try:
+            import requests
+            prompt = f"{img_cfg['style']}\n\nSubject: {thought[:300]}"
+            
+            response = self.openai_client.images.generate(
+                model=img_cfg["model"],
+                prompt=prompt,
+                size=img_cfg["size"],
+                quality=img_cfg["quality"],
+                n=1,
+            )
+            
+            image_url = response.data[0].url
+            img_data = requests.get(image_url).content
+            file_path = "temp_thought.png"
+            with open(file_path, 'wb') as handler:
+                handler.write(img_data)
+            
+            print(f"[SUCCESS] Image generated and saved to {file_path}")
+            return file_path
+        except Exception as e:
+            print(f"[ERROR] Image generation failed: {e}")
+            return None
+
+    def post_to_x(self, parts: list[str], image_path: Optional[str] = None):
+        """Posts the thought to Twitter/X. Handles threads and optional image."""
         if not self.x_client:
             print("[SIMULATION] Thread would be posted:")
             for i, p in enumerate(parts):
@@ -156,30 +199,40 @@ class RubinAgent:
             return
 
         try:
+            media_ids = []
+            if image_path and os.path.exists(image_path):
+                v1_api = self._authenticate_x_v1()
+                if v1_api:
+                    print(f"[INFO] Uploading image: {image_path}")
+                    media = v1_api.media_upload(filename=image_path)
+                    media_ids = [media.media_id]
+                    print(f"[SUCCESS] Media uploaded. ID: {media_ids[0]}")
+
             previous_id = None
             for i, text in enumerate(parts):
                 print(f"[INFO] Attempting to post part {i+1}/{len(parts)}: {text[:50]}...")
                 
-                if previous_id:
-                     response = self.x_client.create_tweet(text=text, in_reply_to_tweet_id=previous_id)
+                if i == 0 and media_ids:
+                    # Attach image to first tweet
+                    response = self.x_client.create_tweet(text=text, media_ids=media_ids)
+                elif previous_id:
+                    response = self.x_client.create_tweet(text=text, in_reply_to_tweet_id=previous_id)
                 else:
-                     response = self.x_client.create_tweet(text=text)
+                    response = self.x_client.create_tweet(text=text)
                      
                 previous_id = response.data['id']
                 print(f"[SUCCESS] Posted part {i+1}! Tweet ID: {previous_id}")
-                if i == 0:
-                    print(f"[INFO] Thread started at: https://x.com/i/web/status/{previous_id}")
-                time.sleep(0.5) # Smaller delay for serverless efficiency
+                time.sleep(0.5)
+                
+            # Cleanup
+            if image_path and os.path.exists(image_path):
+                os.remove(image_path)
                 
         except Exception as e:
             print(f"[ERROR] Failed to post to X: {e}")
-            if "403" in str(e):
-                print("[ERROR] 403 Forbidden: Check if your App has 'Read and Write' permissions enabled in Twitter Developer Portal.")
-            elif "429" in str(e):
-                print("[ERROR] 429 Too Many Requests: Rate limit exceeded.")
 
     def run_once(self):
-        """Runs the generation and posting logic a single time (for serverless/cron)."""
+        """Runs the generation and posting logic a single time."""
         print(f"\n[RUN ONCE START] {datetime.now().strftime('%Y-%m-%d %H:%M')}")
         
         parts = self.generate_thought()
@@ -187,12 +240,13 @@ class RubinAgent:
             print("[ERROR] No content generated.")
             return None
             
+        # Generate image based on the core thought (first part)
+        image_path = self.generate_image(parts[0])
+            
         self._log_to_journal(parts)
-        self.post_to_x(parts)
+        self.post_to_x(parts, image_path)
         
-        print("\n[METADATA]:")
         full_text = " ||| ".join(parts)
-        print(f"Total parts: {len(parts)}, Total length: {len(full_text)}")
         print("[RUN ONCE END]")
         return full_text
 
