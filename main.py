@@ -152,12 +152,15 @@ class RubinAgent:
         return valid_parts
 
     def _log_to_journal(self, parts: list[str]):
-        """Appends the thought to journal.md with a timestamp."""
-        thought_text = "\n[THREAD]\n".join(parts)
-        entry = f"\n## {datetime.now().strftime('%Y-%m-%d %H:%M')}\n{thought_text}\n"
-        with open("journal.md", "a", encoding="utf-8") as f:
-            f.write(entry)
-        print("[Saved to journal.md]")
+        """Appends the thought to journal.md with a timestamp. Fails gracefully on read-only systems."""
+        try:
+            thought_text = "\n[THREAD]\n".join(parts)
+            entry = f"\n## {datetime.now().strftime('%Y-%m-%d %H:%M')}\n{thought_text}\n"
+            with open("journal.md", "a", encoding="utf-8") as f:
+                f.write(entry)
+            print("[Saved to journal.md]")
+        except Exception as e:
+            print(f"[WARN] Could not write to journal.md (expected in Vercel): {e}")
 
     def generate_image(self, thought: str) -> Optional[str]:
         """Generates an image using DALL-E 3 based on the thought."""
@@ -180,7 +183,11 @@ class RubinAgent:
             
             image_url = response.data[0].url
             img_data = requests.get(image_url).content
-            file_path = "temp_thought.png"
+            
+            # Use /tmp for Vercel/Serverless compatibility
+            import tempfile
+            file_path = os.path.join(tempfile.gettempdir(), "temp_thought.png")
+            
             with open(file_path, 'wb') as handler:
                 handler.write(img_data)
             

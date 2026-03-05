@@ -1,0 +1,42 @@
+name: Rubin Agent Cron Job
+
+on:
+  schedule:
+    # Runs at 12:00 UTC every day (09:00 AM ART)
+    - cron: '0 12 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub UI
+
+jobs:
+  tweet:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Important to push changes to journal.md
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Rubin Agent
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          X_CONSUMER_KEY: ${{ secrets.X_CONSUMER_KEY }}
+          X_CONSUMER_SECRET: ${{ secrets.X_CONSUMER_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+        run: |
+          python -c "from main import RubinAgent; agent = RubinAgent(); agent.run_once()"
+
+      - name: Commit and push journal changes
+        run: |
+          git config --global user.name "Rubin Bot"
+          git config --global user.email "bot@rubin.ai"
+          git add journal.md
+          git commit -m "Update journal [skip ci]" || echo "No changes to commit"
+          git push
