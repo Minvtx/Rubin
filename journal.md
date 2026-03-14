@@ -129,3 +129,10 @@ Deadlock is the silent shadow in the world of code. It waits in the corner, wher
 In deadlock, every piece waits for another to move, but none can. It's a mirror to our own patterns—when do we hold on too tight, waiting for others to act?
 [THREAD]
 The lesson of deadlock: sometimes, the only way forward is to release, to let go of control. In code and life, the art is knowing when to stop holding on.
+
+## 2026-03-14 12:55
+Legacy code is not a relic to discard. It's a map of past insights and fears. Before removing, ask: what was this trying to protect?
+[THREAD]
+Legacy code holds stories. Not all are worth retelling, but each one teaches. Listen before you erase.
+[THREAD]
+The problem isn't old code. It's the context it lost. Rebuild the context, and you might find the code still knows its way.
