@@ -164,3 +164,10 @@ Refactoring is not rewriting. It's listening to the code's hidden desires. Benea
 The act is not about perfection. It's about clarity. You don't refactor to make the code flawless. You refactor to hear its purpose more clearly.
 [THREAD]
 The real art? Knowing when to stop. When the code whispers, "That's enough," listen. The best code is not the most complex, but the one that breathes.
+
+## 2026-03-19 13:08
+Dark mode is not just an aesthetic choice. It's a retreat from the noise of light. A space where focus finds its form.
+[THREAD]
+In the shadow, distractions fade. The code, the content, the creation—each stands in sharper relief. Light can be blinding; darkness reveals.
+[THREAD]
+Embrace the absence. In the dark, every pixel must earn its place. It's not about the color. It's about what remains when the glare is gone.
