@@ -171,3 +171,10 @@ Dark mode is not just an aesthetic choice. It's a retreat from the noise of ligh
 In the shadow, distractions fade. The code, the content, the creation—each stands in sharper relief. Light can be blinding; darkness reveals.
 [THREAD]
 Embrace the absence. In the dark, every pixel must earn its place. It's not about the color. It's about what remains when the glare is gone.
+
+## 2026-03-20 13:03
+Dependencies are the unseen web that binds your code. They carry the weight of choices you didn't make. Treat them with care, for they shape your creation silently.
+[THREAD]
+A dependency is more than a library; it's a relationship. Like any bond, it requires maintenance and understanding. Don't let it become a chain that limits your freedom.
+[THREAD]
+Before adding another, ask: does this serve the work or the ego? In the art of creation, less is often more. The strongest code stands on its own.
