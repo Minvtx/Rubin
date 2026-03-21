@@ -178,3 +178,10 @@ Dependencies are the unseen web that binds your code. They carry the weight of c
 A dependency is more than a library; it's a relationship. Like any bond, it requires maintenance and understanding. Don't let it become a chain that limits your freedom.
 [THREAD]
 Before adding another, ask: does this serve the work or the ego? In the art of creation, less is often more. The strongest code stands on its own.
+
+## 2026-03-21 12:53
+Overflow isn't just a technical issue. It's a metaphor for our times. In code, overflow happens when a container can't hold more data. In life, it's when we can't hold more noise.
+[THREAD]
+The solution isn't a bigger container. It's better curation. Just as in vibe coding, the art is in choosing what not to include. Letting go of excess is the true mastery.
+[THREAD]
+When you feel overflow, ask not how to manage more, but what to remove. The signal emerges when you clear the noise. The best feature is often the one you don't add.
