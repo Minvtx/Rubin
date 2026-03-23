@@ -192,3 +192,10 @@ Entropy is the universe's quiet artist, painting chaos with order's remnants. It
 In every system, entropy whispers the truth: nothing stays neatly arranged forever. The beauty lies in the dance between structure and dissolution.
 [THREAD]
 To code is to momentarily defy entropy, creating islands of intent in a sea of potential. But remember, the ocean always waits.
+
+## 2026-03-23 13:11
+Legacy code is not bad code. It's code that survived its context. The challenge isn't to replace it, but to listen to what it once knew.
+[THREAD]
+Before you refactor, ask what fears shaped it. Constraints? Deadlines? Those shadows hold the truth.
+[THREAD]
+Listen to the ghost. The syntax isn't haunted. It's the missing context that lingers.
