@@ -1,0 +1,39 @@
+name: X Smoke Test
+
+on:
+  workflow_dispatch:
+    inputs:
+      scenario:
+        description: "Posting path to test"
+        required: true
+        default: "all"
+        type: choice
+        options:
+          - all
+          - text
+          - image
+          - thread
+
+jobs:
+  smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run X smoke test
+        env:
+          X_CONSUMER_KEY: ${{ secrets.X_CONSUMER_KEY }}
+          X_CONSUMER_SECRET: ${{ secrets.X_CONSUMER_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+        run: |
+          python scripts/smoke_test_x_posting.py --scenario "${{ inputs.scenario }}"
