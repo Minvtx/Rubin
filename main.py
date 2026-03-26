@@ -46,6 +46,7 @@ class RubinAgent:
             else None
         )
         self.x_client = self._authenticate_x()
+        self.x_client_v1 = None
 
     def _load_config(self, path: str) -> dict[str, Any]:
         with open(path, "r", encoding="utf-8") as f:
@@ -544,9 +545,10 @@ class RubinAgent:
 
     def _upload_media_with_retry(self, image_path: str) -> list[int]:
         retries, backoff = self._retry_cfg()
-        v1_api = self._authenticate_x_v1()
+        v1_api = self.x_client_v1 or self._authenticate_x_v1()
         if not v1_api:
             return []
+        self.x_client_v1 = v1_api
 
         last_error: Optional[Exception] = None
         for attempt in range(1, retries + 1):
@@ -571,6 +573,63 @@ class RubinAgent:
         if last_error:
             print(f"[WARN] Image upload failed after retries: {last_error}")
         return []
+
+    def _post_to_x_v1(
+        self,
+        parts: list[str],
+        media_ids: Optional[list[int]] = None,
+    ) -> dict[str, Any]:
+        v1_api = self.x_client_v1 or self._authenticate_x_v1()
+        if not v1_api:
+            return {
+                "success": False,
+                "simulated": False,
+                "tweet_ids": [],
+                "used_image": bool(media_ids),
+                "error": "X V1.1 fallback unavailable",
+            }
+
+        self.x_client_v1 = v1_api
+        tweet_ids: list[str] = []
+        previous_id: Optional[str] = None
+
+        try:
+            for index, text in enumerate(parts, start=1):
+                kwargs: dict[str, Any] = {
+                    "status": text,
+                    "tweet_mode": "extended",
+                }
+
+                if previous_id:
+                    kwargs["in_reply_to_status_id"] = previous_id
+                    kwargs["auto_populate_reply_metadata"] = True
+                elif media_ids:
+                    kwargs["media_ids"] = media_ids
+
+                print(f"[INFO] Attempting V1.1 fallback for part {index}/{len(parts)}: {text[:50]}...")
+                status = v1_api.update_status(**kwargs)
+                previous_id = str(status.id)
+                tweet_ids.append(previous_id)
+                print(f"[SUCCESS] Posted part {index} with X V1.1 fallback! Tweet ID: {previous_id}")
+                time.sleep(0.5)
+
+            return {
+                "success": True,
+                "simulated": False,
+                "tweet_ids": tweet_ids,
+                "used_image": bool(media_ids),
+                "fallback": "v1.1",
+            }
+        except Exception as e:
+            print(f"[ERROR] X V1.1 fallback failed: {e}")
+            return {
+                "success": False,
+                "simulated": False,
+                "tweet_ids": tweet_ids,
+                "used_image": bool(media_ids),
+                "error": str(e),
+                "fallback": "v1.1",
+            }
 
     def post_to_x(self, parts: list[str], image_path: Optional[str] = None) -> dict[str, Any]:
         if not self.x_client:
@@ -623,13 +682,21 @@ class RubinAgent:
                 "used_image": bool(media_ids),
             }
         except Exception as e:
-            print(f"[ERROR] Failed to post to X after retries: {e}")
+            print(f"[WARN] V2 posting failed after retries: {e}")
+            fallback_result = self._post_to_x_v1(parts, media_ids=media_ids)
+            if fallback_result.get("success"):
+                return fallback_result
+
+            print(
+                "[ERROR] Failed to post to X via both V2 and V1.1 fallback: "
+                f"{fallback_result.get('error', e)}"
+            )
             return {
                 "success": False,
                 "simulated": False,
-                "tweet_ids": tweet_ids,
-                "used_image": bool(media_ids),
-                "error": str(e),
+                "tweet_ids": fallback_result.get("tweet_ids", tweet_ids),
+                "used_image": fallback_result.get("used_image", bool(media_ids)),
+                "error": fallback_result.get("error", str(e)),
             }
         finally:
             if image_path and os.path.exists(image_path):
