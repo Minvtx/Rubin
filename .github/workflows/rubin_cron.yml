@@ -1,5 +1,9 @@
 name: Rubin Agent Cron Job
 
+concurrency:
+  group: rubin-agent-cron
+  cancel-in-progress: false
+
 on:
   schedule:
     # Runs at 12:00 UTC every day (09:00 AM ART)
@@ -14,6 +18,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -24,6 +30,8 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Run Rubin Agent
+        id: run_agent
+        continue-on-error: true
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           X_CONSUMER_KEY: ${{ secrets.X_CONSUMER_KEY }}
@@ -34,9 +42,16 @@ jobs:
           python -c "from main import RubinAgent; agent = RubinAgent(); agent.run_once()"
 
       - name: Commit and push journal changes
+        if: always()
         run: |
           git config --global user.name "Rubin Bot"
           git config --global user.email "bot@rubin.ai"
           git add journal.md
-          git commit -m "Update journal [skip ci]" || echo "No changes to commit"
-          git push
+          git diff --cached --quiet && echo "No journal changes to commit" && exit 0
+          git commit -m "Update journal [skip ci]"
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Fail workflow if agent run failed
+        if: steps.run_agent.outcome == 'failure'
+        run: exit 1

@@ -12,6 +12,8 @@
     "creativity_temperature": 0.65,
     "schedule_cron": "0 12 * * *",
     "jitter_minutes": 5,
+    "post_max_retries": 4,
+    "retry_backoff_seconds": 2.5,
     "context_window_tokens": 8192,
     "image_generation": {
       "enabled": true,
@@ -20,6 +22,11 @@
       "quality": "standard",
       "size": "1024x1024"
     }
+  },
+  "editorial_configuration": {
+    "generation_attempts": 3,
+    "recent_memory_entries": 12,
+    "similarity_threshold": 0.72
   },
   "output_constraints": {
     "language": "ENGLISH ONLY (or minimal Spanish if poetic)",
