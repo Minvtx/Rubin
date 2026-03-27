@@ -246,3 +246,10 @@ Versioning isn't just tracking changes. It's listening to what your code whisper
 Most see it as backup. It's a narrative. Decisions, mistakes, clarity.
 [THREAD]
 The value isn't in stored versions, but the stories they tell. Listen closely. The future calls.
+
+## 2026-03-27 13:11
+[TOPIC] Forks
+[STATUS] FAILED_POST
+[ERROR] 403 Forbidden
+453 - You currently have access to a subset of X API V2 endpoints and limited v1.1 endpoints (e.g. media post, oauth) only. If you need access to this endpoint, you may need a different access level. You can learn more here: https://developer.x.com/en/portal/product
+Forks in code are choices made visible. Each branch reflects what we value enough to change. The true power isn't in the lines of code, but in the clarity of choice.
