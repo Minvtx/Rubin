@@ -264,3 +264,10 @@ Deprecation isn't loss; it's liberation. Removing the obsolete clears space for 
 In software, letting go is an act of precision. It reveals the core by discarding the clutter.
 [THREAD]
 The art of deprecation is curation. Keep what resonates, remove what doesn't.
+
+## 2026-03-29 13:00
+[TOPIC] Runtime
+[STATUS] FAILED_POST
+[ERROR] 403 Forbidden
+453 - You currently have access to a subset of X API V2 endpoints and limited v1.1 endpoints (e.g. media post, oauth) only. If you need access to this endpoint, you may need a different access level. You can learn more here: https://developer.x.com/en/portal/product
+Runtime is a dynamic dance between code and context. Clarity is king. Execution speed matters, but knowing what to run and when defines mastery.
