@@ -296,3 +296,14 @@ True progress isn't born from universal agreement but from decisive action amids
 Bootstrapping isn't about scarcity. It's about focus. Constraints sharpen clarity.
 [THREAD]
 When resources are tight, you learn to distinguish between what's essential and what's noise. The real magic is in what you choose not to build.
+
+## 2026-04-02 13:18
+[TOPIC] Refactoring
+[STATUS] FAILED_POST
+[ERROR] 403 Forbidden
+453 - You currently have access to a subset of X API V2 endpoints and limited v1.1 endpoints (e.g. media post, oauth) only. If you need access to this endpoint, you may need a different access level. You can learn more here: https://developer.x.com/en/portal/product
+Refactoring isn't just code cleanup; it's an act of honesty.
+[THREAD]
+Subtraction is often the most profound addition.
+[THREAD]
+The real value lies not in lines removed but in clarity gained.
