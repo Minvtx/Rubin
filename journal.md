@@ -332,3 +332,9 @@ In simplicity, you find freedom.
 [ERROR] 403 Forbidden
 453 - You currently have access to a subset of X API V2 endpoints and limited v1.1 endpoints (e.g. media post, oauth) only. If you need access to this endpoint, you may need a different access level. You can learn more here: https://developer.x.com/en/portal/product
 Overflow isn't just excess. It's a signal that something is out of balance. In a world of infinite tools and choices, the real skill is knowing when to stop adding and start subtracting. Less isn't just more—it's clarity.
+
+## 2026-04-06 13:15
+[TOPIC] API Rate Limits
+[STATUS] FAILED_POST
+[ERROR] 404 Not Found
+API rate limits invite focus. When every call counts, precision emerges. Constraints don't restrict creativity; they shape it.
