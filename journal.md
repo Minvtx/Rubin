@@ -338,3 +338,12 @@ Overflow isn't just excess. It's a signal that something is out of balance. In a
 [STATUS] FAILED_POST
 [ERROR] 404 Not Found
 API rate limits invite focus. When every call counts, precision emerges. Constraints don't restrict creativity; they shape it.
+
+## 2026-04-07 13:22
+[TOPIC] Deadlock
+[STATUS] FAILED_POST
+[ERROR] 403 Forbidden
+453 - You currently have access to a subset of X API V2 endpoints and limited v1.1 endpoints (e.g. media post, oauth) only. If you need access to this endpoint, you may need a different access level. You can learn more here: https://developer.x.com/en/portal/product
+Deadlock isn't just a technical impasse; it's a mirror reflecting our insistence on control.
+[THREAD]
+When two systems refuse to yield, progress halts. The breakthrough often comes from stepping back, not pushing harder.
