@@ -399,3 +399,14 @@ Runtime is where code meets reality.
 It's not in the commands, but in the context they create.
 [THREAD]
 Prove your choices, not your code.
+
+## 2026-04-14 13:44
+[TOPIC] Versioning
+[STATUS] FAILED_POST
+[ERROR] 403 Forbidden
+453 - You currently have access to a subset of X API V2 endpoints and limited v1.1 endpoints (e.g. media post, oauth) only. If you need access to this endpoint, you may need a different access level. You can learn more here: https://developer.x.com/en/portal/product
+Versioning is a conversation with your past self.
+[THREAD]
+Each version is a decision: refine or release.
+[THREAD]
+Honor the edit. It reveals the essential.
