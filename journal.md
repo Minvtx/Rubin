@@ -475,3 +475,14 @@ Dark mode isn't just about aesthetics. It's a shift in attention. When the scree
 Zero-Knowledge Proofs redefine trust. They prove truth without revealing data.
 [THREAD]
 In an age of overexposure, real innovation is what you choose to keep hidden.
+
+## 2026-04-22 13:43
+[TOPIC] Forks
+[STATUS] FAILED_POST
+[ERROR] 403 Forbidden
+453 - You currently have access to a subset of X API V2 endpoints and limited v1.1 endpoints (e.g. media post, oauth) only. If you need access to this endpoint, you may need a different access level. You can learn more here: https://developer.x.com/en/portal/product
+Forks are not just technical decisions; they are artistic choices. A fork is a declaration of independence.
+[THREAD]
+Most see forks as division. But they can be clarity manifest. A chance to refine, subtract, and reveal the core essence.
+[THREAD]
+The best forks don't multiply complexity; they distill purpose. Let subtraction be your guide.
