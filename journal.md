@@ -486,3 +486,10 @@ Forks are not just technical decisions; they are artistic choices. A fork is a d
 Most see forks as division. But they can be clarity manifest. A chance to refine, subtract, and reveal the core essence.
 [THREAD]
 The best forks don't multiply complexity; they distill purpose. Let subtraction be your guide.
+
+## 2026-04-23 13:46
+[TOPIC] Entropy
+[STATUS] FAILED_POST
+[ERROR] 403 Forbidden
+453 - You currently have access to a subset of X API V2 endpoints and limited v1.1 endpoints (e.g. media post, oauth) only. If you need access to this endpoint, you may need a different access level. You can learn more here: https://developer.x.com/en/portal/product
+Entropy nudges us, reminding that order demands effort. Each new feature adds chaos. Builders, your craft lies in reduction. Subtract to let clarity emerge.
