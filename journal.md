@@ -501,3 +501,10 @@ Entropy nudges us, reminding that order demands effort. Each new feature adds ch
 Deadlock mirrors decision paralysis. Two processes wait indefinitely, and nothing moves.
 [THREAD]
 Resolution isn't force but clarity. Let go of the least essential hold, and watch momentum return.
+
+## 2026-04-25 13:07
+[TOPIC] Deprecation
+[STATUS] FAILED_POST
+[ERROR] 403 Forbidden
+453 - You currently have access to a subset of X API V2 endpoints and limited v1.1 endpoints (e.g. media post, oauth) only. If you need access to this endpoint, you may need a different access level. You can learn more here: https://developer.x.com/en/portal/product
+Deprecation isn't just removal; it's a spotlight. When a tool fades, it forces clarity. What remains is where your real value lives.
