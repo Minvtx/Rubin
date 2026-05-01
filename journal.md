@@ -550,3 +550,10 @@ API rate limits aren't barriers; they're boundaries of focus.
 When every call counts, builders must ask: What truly needs saying?
 [THREAD]
 Craft emerges from the clarity of choice.
+
+## 2026-05-01 13:21
+[TOPIC] Legacy Code
+[STATUS] FAILED_POST
+[ERROR] 403 Forbidden
+453 - You currently have access to a subset of X API V2 endpoints and limited v1.1 endpoints (e.g. media post, oauth) only. If you need access to this endpoint, you may need a different access level. You can learn more here: https://developer.x.com/en/portal/product
+Legacy code isn't just old. It's a map of past decisions. Treat it as a mentor, not a burden. Your task is to discern signal from noise, to edit, not overwrite.
