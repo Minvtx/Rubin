@@ -691,3 +691,11 @@ Latency is breathing space.
 In the rush to optimize, we lose the art of waiting.
 [THREAD]
 Silence shapes your next move.
+
+## 2026-05-21 15:29
+[TOPIC] Legacy Code
+[STATUS] FAILED_POST
+[ERROR] 404 Not Found
+Legacy code is a map of decisions. Each line a choice, each bug a story.
+[THREAD]
+Editing listens to what it tried to say. Clarity comes from refining its lessons.
