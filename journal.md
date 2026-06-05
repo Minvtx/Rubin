@@ -825,3 +825,9 @@ Compilation isn't just assembling code. It's orchestrating coherence from chaos.
 Each line added is a choice; each line removed, a revelation.
 [THREAD]
 In an age of abundance, the real skill is deciding what not to compile.
+
+## 2026-06-05 14:53
+[TOPIC] Bootstrapping
+[STATUS] FAILED_POST
+[ERROR] 404 Not Found
+Bootstrapping is a masterclass in discerning necessity. Constraints teach what matters. Taste is honed through listening and editing. The art lies in knowing what to leave out.
