@@ -1099,3 +1099,11 @@ A fork isn't a split. It's a decision. Most see divergence; the wise see opportu
 The art of forking lies in knowing which paths to leave unexplored. True progress isn't in multiplying routes but in discerning the one that matters.
 [THREAD]
 In a world of infinite choices, clarity is your compass.
+
+## 2026-07-12 13:21
+[TOPIC] Deadlock
+[STATUS] FAILED_POST
+[ERROR] 404 Not Found
+Deadlock isn't stagnation. It's a signal. Most see an impasse; the wise see a chance to listen.
+[THREAD]
+In deadlock, the system speaks. Strip away the noise to find the core tension. Resolution isn't force. It's revealing the path that was always there.
