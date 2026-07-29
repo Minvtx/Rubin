@@ -1223,3 +1223,13 @@ Overflow isn't abundance. It's interference. Most see capacity; the discerning s
 To build is to decide what not to include.
 [THREAD]
 In the noise of excess, clarity is found in subtraction.
+
+## 2026-07-29 14:11
+[TOPIC] Deadlock
+[STATUS] FAILED_POST
+[ERROR] 404 Not Found
+Deadlock isn't a halt. It's a mirror. Most see stagnation; the discerning see revelation.
+[THREAD]
+When processes collide, they're speaking. Listen to what they reveal about your system's true constraints.
+[THREAD]
+Progress comes from understanding the dance. Align, don't wrestle.
