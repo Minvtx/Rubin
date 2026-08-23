@@ -1415,3 +1415,11 @@ Let versioning guide your craft. Clarity emerges not from features added, but fr
 Zero-knowledge proof isn't just verification. It's trust without exposure. Most see cryptography; the discerning see integrity.
 [THREAD]
 In an era of transparency, the art lies in knowing without revealing. Clarity comes not from what you show, but from what you wisely choose to keep hidden.
+
+## 2026-08-23 12:40
+[TOPIC] API Rate Limits
+[STATUS] FAILED_POST
+[ERROR] 404 Not Found
+Rate limits aren't barriers. They're boundaries. Most see restriction; the discerning see focus.
+[THREAD]
+Use limits as a lens. They reveal what truly matters. The art isn't in endless calls, but in the deliberate choice of which ones to make.
