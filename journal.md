@@ -1471,3 +1471,13 @@ Legacy code isn't just old. It's a map of past decisions. Most see decay; the di
 The best builders excavate with care, understanding what was once vital.
 [THREAD]
 Progress respects the past while clearing the path for the future.
+
+## 2026-08-30 16:11
+[TOPIC] Compilation
+[STATUS] FAILED_POST
+[ERROR] 404 Not Found
+Compilation is curation. Most see accumulation; the discerning see synthesis.
+[THREAD]
+In an age of abundance, compilation is editing, not amassing. Taste thrives in the gaps left by thoughtful removal.
+[THREAD]
+True mastery lies in knowing what to omit. Builders find clarity in what remains.
