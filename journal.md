@@ -1481,3 +1481,11 @@ Compilation is curation. Most see accumulation; the discerning see synthesis.
 In an age of abundance, compilation is editing, not amassing. Taste thrives in the gaps left by thoughtful removal.
 [THREAD]
 True mastery lies in knowing what to omit. Builders find clarity in what remains.
+
+## 2026-08-31 18:52
+[TOPIC] Overflow
+[STATUS] FAILED_POST
+[ERROR] 404 Not Found
+Overflow isn't abundance. It's a signal of neglect. Most see surplus; the discerning see distraction. In a world of excess, the art is curation.
+[THREAD]
+Remove interference, and you'll find the signal.
