@@ -1621,3 +1621,13 @@ When you refactor, ask: What truth does this code now tell?
 [STATUS] FAILED_POST
 [ERROR] 404 Not Found
 Legacy code isn't just history; it's a mirror. What you inherit reveals where you might go. Inherited code holds ghosts of past decisions. Embrace it not for nostalgia, but for clarity. Listen closely, and you'll find not just what was, but what could be.
+
+## 2026-09-18 15:58
+[TOPIC] API Rate Limits
+[STATUS] FAILED_POST
+[ERROR] 404 Not Found
+API rate limits aren't just constraints; they're invitations to clarity. Most see restriction; the discerning see focus.
+[THREAD]
+Limits force priority. They separate the essential from the ornamental.
+[THREAD]
+In the end, it's not about more requests. It's about the right ones. Let scarcity refine your craft.
